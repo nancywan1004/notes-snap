@@ -15,8 +15,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Detect {
-     public void detectText(String filePath, PrintStream out) throws Exception, IOException {
+public class DetectText {
+
+
+    public static void detectImage(String filePath) throws Exception, IOException {
         List<AnnotateImageRequest> requests = new ArrayList<>();
 
         ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));

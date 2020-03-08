@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
     private Button btnDetect;
     private ImageView ivImage;
     private String userChoosenTask;
+    private Bitmap bm=null;
+    public String myPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,26 @@ public class MainActivity extends Activity {
                 selectImage();
             }
         });
+        btnDetect.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (myPath!=""){
+                    try {
+                        DetectText.detectImage(myPath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    // create the view of image not chosen
+                }
+
+            }
+        });
         ivImage = (ImageView) findViewById(R.id.ivImage);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -100,6 +120,8 @@ public class MainActivity extends Activity {
 
         if (requestCode == SELECT_FILE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
+            String myPath = selectedImage.getPath();
+            System.out.println(myPath);
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -110,7 +132,16 @@ public class MainActivity extends Activity {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            ivImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            ivImage.setImageBitmap(bm);
 
             btnDetect.setVisibility(View.VISIBLE);
 
