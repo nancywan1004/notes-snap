@@ -107,16 +107,26 @@ public class MainActivity extends Activity {
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
+            final String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
             ivImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
             btnDetect.setVisibility(View.VISIBLE);
 
+            btnDetect.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentDetect = new Intent(getApplicationContext(), DetectTextActivity.class);
+                    intentDetect.putExtra("FILE_PATH", picturePath);
+                    startActivity(intentDetect);
+                }
+            });
+
         }
 
-
     }
+
+
 
 }

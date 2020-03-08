@@ -15,7 +15,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Detect {
+public class DetectText {
      public void detectText(String filePath, PrintStream out) throws Exception, IOException {
         List<AnnotateImageRequest> requests = new ArrayList<>();
 
