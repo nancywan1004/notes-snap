@@ -10,7 +10,7 @@ public class main {
         String filePath = "C:\\Users\\Pavitar K\\Desktop\\All files\\UBC\\2017 Winter\\Phys 157\\testImage.jpg";
 /*
         System.out.println(System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
-*/
+*/      //
         PrintStream result = new PrintStream(OutputStream.nullOutputStream());
         PrintStream result2 = new PrintStream(OutputStream.nullOutputStream());
         textReader.detectText(filePath, result);
